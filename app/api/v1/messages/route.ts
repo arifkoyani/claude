@@ -4,16 +4,16 @@ import crypto from "crypto";
 
 function getClaudeConfig() {
   const baseUrl = process.env.CLAUDE_BASE_URL || "https://claude.toolznex.com";
-  const ajs = process.env.AJS_ANONYMOUS_ID || "claudeai.v1.ef3f5178-15ac-4e04-b49c-23d7f32674a7";
-  const amember = process.env.AMEMBER_NR || "a52ade708c86928c3b100fdd2a1555aa";
+  const ajs = process.env.AJS_ANONYMOUS_ID || "claudeai.v1.8342af65-7d95-470d-82f1-f43ba12b973b";
+  const amember = process.env.AMEMBER_NR || "7900304f2d2ef9747281c443e93049bb";
   const artifact = process.env.ARTIFACT_APP_VIEWER || "1";
   const colorScheme = process.env.CH_PREFERS_COLOR_SCHEME || "dark";
   const org = process.env.LAST_ACTIVE_ORG || "51fb24b0-6628-4bc2-b624-468455e6420b";
   const phpsessid = process.env.PHPSESSID || "b125e83c9cbeb16b7128e5b73e3a04c2";
-  const sessionToken = process.env.SESSION_TOKEN || "MTc5MzczMTM5OC40OTcyODE2";
+  const sessionToken = process.env.SESSION_TOKEN || "MTc5Mzc0NTg5OS4wMTkyMDg=";
   const sidebar = process.env.USER_SIDEBAR_VISIBLE_ON_LOAD || "false";
 
-  const cookie = `ajs_anonymous_id=${ajs}; amember_nr=${amember}; artifact-app-viewer=${artifact}; CH-prefers-color-scheme=${colorScheme}; lastActiveOrg=${org}; PHPSESSID=${phpsessid}; session_token=${sessionToken}; user-sidebar-visible-on-load=${sidebar}`;
+  const cookie = `PHPSESSID=${phpsessid}; amember_nr=${amember}; session_token=${sessionToken}; ajs_anonymous_id=${ajs}; CH-prefers-color-scheme=${colorScheme}; lastActiveOrg=${org}; artifact-app-viewer=${artifact}; user-sidebar-visible-on-load=${sidebar}`;
 
   return {
     baseUrl,

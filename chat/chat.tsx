@@ -13,6 +13,8 @@ export interface AttachedFile {
   size_bytes?: number;
   previewUrl?: string;
   file_kind?: string;
+  file_type?: string;
+  extracted_content?: string;
   uploading?: boolean;
 }
 
@@ -149,6 +151,53 @@ export default function Chat() {
     return "";
   };
 
+  // Helper to resize/compress oversized images to Anthropic Claude vision bounds (max 1568px)
+  const resizeImageIfNeeded = async (file: File, maxDim = 1568): Promise<File> => {
+    if (!file.type.startsWith("image/")) return file;
+    return new Promise((resolve) => {
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+      img.onload = () => {
+        URL.revokeObjectURL(url);
+        let { width, height } = img;
+        if (width <= maxDim && height <= maxDim && file.size < 800 * 1024) {
+          return resolve(file);
+        }
+        if (width > maxDim || height > maxDim) {
+          if (width > height) {
+            height = Math.round((height * maxDim) / width);
+            width = maxDim;
+          } else {
+            width = Math.round((width * maxDim) / height);
+            height = maxDim;
+          }
+        }
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return resolve(file);
+        ctx.drawImage(img, 0, 0, width, height);
+        canvas.toBlob(
+          (blob) => {
+            if (!blob) return resolve(file);
+            const resized = new File([blob], file.name.replace(/\.[^.]+$/, ".jpg"), {
+              type: "image/jpeg",
+            });
+            resolve(resized);
+          },
+          "image/jpeg",
+          0.85
+        );
+      };
+      img.onerror = () => {
+        URL.revokeObjectURL(url);
+        resolve(file);
+      };
+      img.src = url;
+    });
+  };
+
   // Handle file upload to Claude ToolzNex API
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -157,7 +206,8 @@ export default function Chat() {
     setErrorMsg(null);
     setIsUploading(true);
 
-    for (const file of Array.from(files)) {
+    for (const rawFile of Array.from(files)) {
+      const file = await resizeImageIfNeeded(rawFile);
       const isImg = file.type.startsWith("image/");
       const localPreview = isImg ? URL.createObjectURL(file) : undefined;
 
@@ -173,6 +223,9 @@ export default function Chat() {
 
       const formData = new FormData();
       formData.append("file", file);
+      if (activeConversationId) {
+        formData.append("conversationId", activeConversationId);
+      }
 
       try {
         const res = await fetch("/api/upload", {
@@ -194,6 +247,9 @@ export default function Chat() {
               ? {
                   ...f,
                   file_uuid: uploadedUuid,
+                  file_type: data.file_type || file.type,
+                  extracted_content: data.extracted_content,
+                  size_bytes: data.file_size || file.size,
                   uploading: false,
                 }
               : f
@@ -249,15 +305,26 @@ export default function Chat() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          prompt: prompt || "Attached file(s)",
+          prompt: prompt || (currentFiles.length > 0 ? "Please see attached file(s)." : ""),
           conversationId: activeConversationId || undefined,
           model: selectedModel,
-          files: currentFiles
-            .filter((f) => f.file_uuid)
-            .map((f) => ({
-              file_uuid: f.file_uuid,
-              file_name: f.file_name,
-            })),
+          files: currentFiles.filter((f) => f.file_uuid).map((f) => f.file_uuid),
+          attachments: currentFiles
+            .filter((f) => f.extracted_content)
+            .map((f) => {
+              const isImg = f.file_kind === "image" || f.file_type?.startsWith("image/");
+              let content = f.extracted_content || "";
+              const mime = f.file_type || "image/jpeg";
+              if (isImg && !content.startsWith("data:")) {
+                content = `data:${mime};base64,${content}`;
+              }
+              return {
+                file_name: f.file_name,
+                file_type: mime,
+                file_size: f.size_bytes || content.length,
+                extracted_content: content,
+              };
+            }),
         }),
       });
 
