@@ -148,6 +148,13 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Clean up file UUIDs for Claude API
+    const formattedFiles = Array.isArray(files)
+      ? files
+          .map((f: any) => (typeof f === "string" ? f : f?.file_uuid || f?.uuid || f?.id))
+          .filter(Boolean)
+      : [];
+
     // Call completion endpoint with streaming
     const completionUrl = `${baseUrl}/api/organizations/${orgId}/chat_conversations/${conversationId}/completion`;
     const completionRes = await fetch(completionUrl, {
@@ -162,7 +169,7 @@ export async function POST(request: NextRequest) {
         timezone: "UTC",
         model: model || "claude-sonnet-5-5",
         attachments: [],
-        files: Array.isArray(files) ? files : [],
+        files: formattedFiles,
       }),
     });
 

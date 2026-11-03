@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Forward file to Claude ToolzNex upload endpoint
-    const uploadUrl = `${baseUrl}/api/${orgId}/upload`;
+    const uploadUrl = `${baseUrl}/api/organizations/${orgId}/upload`;
     const upstreamFormData = new FormData();
     upstreamFormData.append("file", file, file.name);
 
