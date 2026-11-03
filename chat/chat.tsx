@@ -46,7 +46,7 @@ export default function Chat() {
   const [conversations, setConversations] = useState<ConversationItem[]>([]);
   const [selectedModel, setSelectedModel] = useState<string>("claude-sonnet-5-5");
   const [activeConversationId, setActiveConversationId] = useState<string>(
-    "6bc976c1-1f23-4537-93eb-3126794e4715"
+    "179735f2-87af-448e-8956-4723fc61c443"
   );
   const [conversationTitle, setConversationTitle] = useState<string>("Claude Chat");
   const [messages, setMessages] = useState<Message[]>([]);
@@ -73,6 +73,15 @@ export default function Chat() {
     scrollToBottom();
   }, [messages, isSending, attachedFiles]);
 
+  // Auto-persist messages to localStorage
+  useEffect(() => {
+    if (activeConversationId && messages.length > 0) {
+      try {
+        localStorage.setItem(`claude_msgs_${activeConversationId}`, JSON.stringify(messages));
+      } catch {}
+    }
+  }, [messages, activeConversationId]);
+
   // Load conversations list and active conversation
   useEffect(() => {
     fetchConversationList();
@@ -80,41 +89,76 @@ export default function Chat() {
   }, []);
 
   const fetchConversationList = async () => {
+    let localList: ConversationItem[] = [];
+    try {
+      const saved = localStorage.getItem("claude_conversations");
+      if (saved) localList = JSON.parse(saved);
+    } catch {}
+
     try {
       const res = await fetch("/api/chat?list=true");
       if (res.ok) {
         const data = await res.json();
-        const list: ConversationItem[] = Array.isArray(data?.data)
+        const apiList: ConversationItem[] = Array.isArray(data?.data)
           ? data.data
           : Array.isArray(data)
           ? data
           : [];
-        setConversations(list);
+
+        const map = new Map<string, ConversationItem>();
+        for (const item of [...localList, ...apiList]) {
+          if (item?.uuid) map.set(item.uuid, item);
+        }
+        const merged = Array.from(map.values());
+        setConversations(merged);
+        try {
+          localStorage.setItem("claude_conversations", JSON.stringify(merged));
+        } catch {}
+        return;
       }
     } catch (e) {
       console.warn("Could not load conversations list:", e);
     }
+
+    if (localList.length > 0) {
+      setConversations(localList);
+    } else {
+      setConversations([
+        {
+          uuid: "179735f2-87af-448e-8956-4723fc61c443",
+          name: "Claude Session (Active)",
+        },
+      ]);
+    }
   };
 
   const loadConversation = async (convId: string) => {
+    if (!convId) return;
     setIsLoading(true);
     setErrorMsg(null);
+
+    // Instant local cache restore
     try {
-      const res = await fetch(`/api/chat?conversationId=${convId}`);
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({ error: "Failed to fetch conversation" }));
-        throw new Error(err.error || `HTTP ${res.status}`);
-      }
-      const data = await res.json();
-      setActiveConversationId(data.uuid || convId);
-      setConversationTitle(data.name || "Claude Conversation");
-      if (Array.isArray(data.chat_messages)) {
-        setMessages(data.chat_messages);
+      const local = localStorage.getItem(`claude_msgs_${convId}`);
+      if (local) {
+        setMessages(JSON.parse(local));
       } else {
         setMessages([]);
       }
+    } catch {}
+
+    try {
+      const res = await fetch(`/api/chat?conversationId=${convId}`);
+      if (res.ok) {
+        const data = await res.json();
+        setActiveConversationId(data.uuid || convId);
+        if (data.name) setConversationTitle(data.name);
+        if (Array.isArray(data.chat_messages) && data.chat_messages.length > 0) {
+          setMessages(data.chat_messages);
+        }
+      }
     } catch (err: any) {
-      setErrorMsg(err.message || "Failed to load chat conversation.");
+      console.warn("Upstream conversation fetch note:", err.message);
     } finally {
       setIsLoading(false);
     }
@@ -126,11 +170,26 @@ export default function Chat() {
   };
 
   const handleNewChat = () => {
-    setActiveConversationId("");
+    const newId = crypto.randomUUID();
+    setActiveConversationId(newId);
     setConversationTitle("New Chat Session");
     setMessages([]);
     setAttachedFiles([]);
     setErrorMsg(null);
+
+    const newConv: ConversationItem = {
+      uuid: newId,
+      name: "New Chat Session",
+      created_at: new Date().toISOString(),
+    };
+
+    setConversations((prev) => {
+      const updated = [newConv, ...prev.filter((c) => c.uuid !== newId)];
+      try {
+        localStorage.setItem("claude_conversations", JSON.stringify(updated));
+      } catch {}
+      return updated;
+    });
   };
 
   const handleCopyText = (id: string, text: string) => {
@@ -300,17 +359,29 @@ export default function Chat() {
     setMessages((prev) => [...prev, userMessage, assistantMessage]);
     setIsSending(true);
 
+    // Build prompt with attached document contents (.txt, .py, .json, .csv, .md, etc.)
+    const docFiles = currentFiles.filter((f) => f.file_kind === "document" && f.extracted_content);
+    let finalPrompt = prompt;
+    if (docFiles.length > 0) {
+      const docsContext = docFiles
+        .map((f) => `--- File: ${f.file_name} ---\n${f.extracted_content}\n--- End of ${f.file_name} ---`)
+        .join("\n\n");
+      finalPrompt = finalPrompt ? `${docsContext}\n\n${finalPrompt}` : docsContext;
+    } else if (!finalPrompt && currentFiles.length > 0) {
+      finalPrompt = "Please see attached file(s).";
+    }
+
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          prompt: prompt || (currentFiles.length > 0 ? "Please see attached file(s)." : ""),
+          prompt: finalPrompt,
           conversationId: activeConversationId || undefined,
           model: selectedModel,
           files: currentFiles.filter((f) => f.file_uuid).map((f) => f.file_uuid),
           attachments: currentFiles
-            .filter((f) => !f.file_uuid && f.extracted_content)
+            .filter((f) => !f.file_uuid && f.extracted_content && f.file_kind === "image")
             .map((f) => {
               const isImg = f.file_kind === "image" || f.file_type?.startsWith("image/");
               let content = f.extracted_content || "";
