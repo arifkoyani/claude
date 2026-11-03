@@ -184,6 +184,20 @@ export async function POST(request: NextRequest) {
         })
       : [];
 
+    // When files are uploaded to ToolzNex (files has UUIDs), attachments must be empty to avoid payload conflict
+    const finalAttachments = formattedFiles.length > 0 ? [] : formattedAttachments;
+
+    const completionPayload: any = {
+      prompt,
+      timezone: "UTC",
+      rendering_mode: "messages",
+      attachments: finalAttachments,
+      files: formattedFiles,
+    };
+    if (model) {
+      completionPayload.model = model;
+    }
+
     // Call completion endpoint with streaming
     const completionUrl = `${baseUrl}/api/organizations/${orgId}/chat_conversations/${conversationId}/completion`;
     const completionRes = await fetch(completionUrl, {
@@ -193,13 +207,7 @@ export async function POST(request: NextRequest) {
         "Content-Type": "application/json",
         Accept: "text/event-stream, application/json",
       },
-      body: JSON.stringify({
-        prompt,
-        timezone: "UTC",
-        model: model || "claude-sonnet-5-5",
-        attachments: formattedAttachments,
-        files: formattedFiles,
-      }),
+      body: JSON.stringify(completionPayload),
     });
 
     if (!completionRes.ok || completionRes.headers.get("content-type")?.includes("text/html")) {

@@ -310,7 +310,7 @@ export default function Chat() {
           model: selectedModel,
           files: currentFiles.filter((f) => f.file_uuid).map((f) => f.file_uuid),
           attachments: currentFiles
-            .filter((f) => f.extracted_content)
+            .filter((f) => !f.file_uuid && f.extracted_content)
             .map((f) => {
               const isImg = f.file_kind === "image" || f.file_type?.startsWith("image/");
               let content = f.extracted_content || "";
