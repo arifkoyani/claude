@@ -894,8 +894,30 @@ export default function Chat() {
       {/* Main Chat Interface */}
       <main className="flex-1 flex flex-col h-full bg-[#0d1117] min-w-0">
         {/* Header Bar */}
-        <header className="h-14 border-b border-slate-800/80 bg-[#161b22]/70 backdrop-blur px-4 sm:px-6 flex items-center justify-between shrink-0 gap-2">
-          <div className="flex items-center min-w-0">
+        <header className="h-14 border-b border-slate-800/80 bg-[#161b22]/70 backdrop-blur px-3 sm:px-6 flex items-center justify-between shrink-0 gap-2">
+          <div className="flex items-center min-w-0 gap-2.5 sm:gap-3">
+            {/* When sidebar is hidden: show logo and claudex with Show Sidebar button just to the right */}
+            {!isSidebarOpen && (
+              <div className="flex items-center gap-2 shrink-0 pr-2 sm:pr-3 border-r border-slate-800">
+                <img
+                  src="/Claude-logo.png"
+                  alt="claudex logo"
+                  className="w-6 h-6 object-contain rounded"
+                />
+                <span className="font-bold text-sm text-slate-100 tracking-wide">claudex</span>
+                <button
+                  type="button"
+                  onClick={() => setIsSidebarOpen(true)}
+                  className="p-1.5 ml-0.5 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-slate-800 transition cursor-pointer"
+                  title="Show sidebar"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 5a2 2 0 012-2h12a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V5z M9 3v18" />
+                  </svg>
+                </button>
+              </div>
+            )}
+
             <div className="min-w-0">
               <h1 className="text-xs sm:text-sm font-semibold text-slate-100 truncate max-w-xs sm:max-w-md md:max-w-lg">
                 {conversationTitle}
