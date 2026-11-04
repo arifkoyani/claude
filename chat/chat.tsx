@@ -37,11 +37,14 @@ interface ConversationItem {
 }
 
 export const AVAILABLE_MODELS = [
-  { id: "claude-sonnet-5-5", label: "Claude Sonnet 5.5", tag: "Default" },
-  { id: "claude-opus-5", label: "Claude Opus 5", tag: "Opus" },
-  { id: "claude-3-7-sonnet-20250219", label: "Claude 3.7 Sonnet", tag: "v3.7" },
-  { id: "claude-3-5-sonnet-20241022", label: "Claude 3.5 Sonnet", tag: "v3.5" },
-  { id: "claude-3-5-haiku-20241022", label: "Claude 3.5 Haiku", tag: "Fast" },
+  { id: "claude-fable-5-1", label: "Claude Fable 5.1" },
+  { id: "claude-fable-5", label: "Claude Fable 5" },
+  { id: "claude-opus-5-5", label: "Claude Opus 5.5" },
+  { id: "claude-opus-4-7", label: "Claude Opus 4.7" },
+  { id: "claude-opus-4-6", label: "Claude Opus 4.6" },
+  { id: "claude-sonnet-5", label: "Claude Sonnet 5" },
+  { id: "claude-sonnet-4-6", label: "Claude Sonnet 4.6" },
+  { id: "claude-haiku-4-5", label: "Claude Haiku 4.5" },
 ];
 
 // Interactive Syntax-styled Code Block with Copy to Clipboard
@@ -121,39 +124,39 @@ function MarkdownMessage({
   isHuman: boolean;
 }) {
   if (isHuman) {
-    return <div className="whitespace-pre-wrap leading-relaxed">{content}</div>;
+    return <div className="whitespace-pre-wrap leading-6 text-[14px] sm:text-[15px]">{content}</div>;
   }
 
   return (
-    <div className="markdown-body leading-relaxed text-slate-100 text-xs sm:text-sm">
+    <div className="markdown-body leading-6 sm:leading-7 text-slate-100 text-[14px] sm:text-[15px]">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
           h1: ({ children }) => (
-            <h1 className="text-base sm:text-lg font-bold text-white mt-4 mb-2 pb-1 border-b border-slate-700/60">
+            <h1 className="text-lg sm:text-xl font-bold text-white mt-4 mb-2 pb-1 border-b border-slate-700/60">
               {children}
             </h1>
           ),
           h2: ({ children }) => (
-            <h2 className="text-sm sm:text-base font-bold text-emerald-300 mt-3 mb-1.5 pb-0.5 border-b border-slate-800/60">
+            <h2 className="text-base sm:text-lg font-bold text-emerald-300 mt-3.5 mb-1.5 pb-0.5 border-b border-slate-800/60">
               {children}
             </h2>
           ),
           h3: ({ children }) => (
-            <h3 className="text-xs sm:text-sm font-semibold text-emerald-400 mt-2.5 mb-1">
+            <h3 className="text-sm sm:text-base font-semibold text-emerald-400 mt-3 mb-1">
               {children}
             </h3>
           ),
           h4: ({ children }) => (
-            <h4 className="text-xs font-semibold text-slate-200 mt-2 mb-1">
+            <h4 className="text-[13px] sm:text-sm font-semibold text-slate-200 mt-2 mb-1">
               {children}
             </h4>
           ),
           p: ({ children }) => (
-            <p className="mb-2.5 last:mb-0 leading-relaxed">{children}</p>
+            <p className="mb-2.5 last:mb-0 leading-6 sm:leading-7 text-[14px] sm:text-[15px]">{children}</p>
           ),
           strong: ({ children }) => (
-            <strong className="font-semibold text-emerald-200">
+            <strong className="font-semibold text-white">
               {children}
             </strong>
           ),
@@ -161,24 +164,24 @@ function MarkdownMessage({
             <em className="italic text-slate-300">{children}</em>
           ),
           ul: ({ children }) => (
-            <ul className="list-disc list-outside ml-4 space-y-1 mb-2.5 text-slate-200">
+            <ul className="list-disc list-outside ml-5 space-y-1 mb-2.5 text-slate-200 text-[14px] sm:text-[15px]">
               {children}
             </ul>
           ),
           ol: ({ children }) => (
-            <ol className="list-decimal list-outside ml-4 space-y-1 mb-2.5 text-slate-200">
+            <ol className="list-decimal list-outside ml-5 space-y-1 mb-2.5 text-slate-200 text-[14px] sm:text-[15px]">
               {children}
             </ol>
           ),
-          li: ({ children }) => <li className="leading-relaxed">{children}</li>,
+          li: ({ children }) => <li className="leading-6 sm:leading-7">{children}</li>,
           blockquote: ({ children }) => (
-            <blockquote className="border-l-3 border-emerald-500/80 pl-3 py-1.5 my-2.5 bg-slate-800/40 rounded-r text-slate-300 italic text-xs">
+            <blockquote className="border-l-3 border-emerald-500/80 pl-3.5 py-1.5 my-2.5 bg-slate-800/40 rounded-r text-slate-300 italic text-[13px] sm:text-[14px]">
               {children}
             </blockquote>
           ),
           table: ({ children }) => (
             <div className="overflow-x-auto my-3 border border-slate-700/80 rounded-lg">
-              <table className="min-w-full divide-y divide-slate-700/80 text-xs">
+              <table className="min-w-full divide-y divide-slate-700/80 text-xs sm:text-sm">
                 {children}
               </table>
             </div>
@@ -234,7 +237,7 @@ function MarkdownMessage({
 export default function Chat() {
   const [conversations, setConversations] = useState<ConversationItem[]>([]);
   const [selectedModel, setSelectedModel] =
-    useState<string>("claude-sonnet-5-5");
+    useState<string>("claude-sonnet-5");
   const [activeConversationId, setActiveConversationId] = useState<string>(
     "179735f2-87af-448e-8956-4723fc61c443",
   );
@@ -730,24 +733,57 @@ export default function Chat() {
   };
 
   return (
-    <div className="flex h-screen w-screen bg-[#0d1117] text-slate-100 font-sans overflow-hidden">
+    <div className="flex h-screen w-screen bg-[#0d1117] text-slate-100 font-sans overflow-hidden relative">
+      {/* Mobile Backdrop Overlay when sidebar is open */}
+      {isSidebarOpen && (
+        <div
+          onClick={() => setIsSidebarOpen(false)}
+          className="fixed inset-0 bg-black/60 z-30 sm:hidden backdrop-blur-xs transition-opacity cursor-pointer"
+          aria-hidden="true"
+        />
+      )}
+
       {/* Sidebar */}
       <aside
-        className={`${
-          isSidebarOpen ? "w-72" : "w-0"
-        } transition-all duration-300 flex flex-col bg-[#161b22] border-r border-slate-800 shrink-0 overflow-hidden select-none`}
+        className={`fixed sm:relative inset-y-0 left-0 z-40 sm:z-auto h-full ${
+          isSidebarOpen
+            ? "w-72 translate-x-0"
+            : "-translate-x-full sm:translate-x-0 sm:w-0"
+        } transition-all duration-300 ease-in-out flex flex-col bg-[#161b22] border-r border-slate-800 shrink-0 overflow-hidden select-none shadow-2xl sm:shadow-none`}
       >
-        <div className="p-4 border-b border-slate-800 flex items-center justify-between">
-          <div className="flex items-center gap-2.5 font-bold text-sm text-slate-100 tracking-wide">
+        <div className="p-3.5 border-b border-slate-800 flex items-center justify-center">
+          <div className="flex items-center gap-2">
             <img
               src="/Claude-logo.png"
               alt="claudex logo"
-              className="w-8 h-8 object-contain rounded"
+              className="w-7 h-7 object-contain rounded"
             />
+            <span className="font-bold text-sm text-slate-100 tracking-wide">claudex</span>
+            {/* Sidebar Hide Button right side of logo and claudex */}
+            <button
+              type="button"
+              onClick={() => setIsSidebarOpen(false)}
+              className="p-1.5 ml-1 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-slate-800 transition cursor-pointer"
+              title="Hide sidebar"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 5a2 2 0 012-2h12a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V5z M9 3v18" />
+              </svg>
+            </button>
           </div>
+        </div>
+
+        {/* Conversation list */}
+        <div className="flex-1 overflow-y-auto p-2 space-y-1.5 text-xs">
+          <div className="px-2 py-1 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+            Conversations
+          </div>
+
+          {/* New Chat Button just below CONVERSATIONS */}
           <button
+            type="button"
             onClick={handleNewChat}
-            className="p-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition active:scale-95 cursor-pointer text-xs font-semibold flex items-center gap-1 shadow"
+            className="w-full text-left px-3 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium transition cursor-pointer flex items-center gap-2 shadow"
             title="Start New Chat"
           >
             <svg
@@ -763,15 +799,8 @@ export default function Chat() {
                 d="M12 4v16m8-8H4"
               />
             </svg>
-            New
+            <span>New chat</span>
           </button>
-        </div>
-
-        {/* Conversation list */}
-        <div className="flex-1 overflow-y-auto p-2 space-y-1 text-xs">
-          <div className="px-2 py-1.5 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
-            Conversations
-          </div>
           {conversations.length === 0 ? (
             <div className="px-3 py-2 text-slate-500 text-xs italic">
               {isLoading ? "Loading chats..." : "No past conversations"}
@@ -806,7 +835,9 @@ export default function Chat() {
                         d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
                       />
                     </svg>
-                    <span className="truncate">{c.name || "Untitled Chat"}</span>
+                    <span className="truncate">
+                      {c.name || "Untitled Chat"}
+                    </span>
                   </button>
                   <button
                     type="button"
@@ -863,47 +894,34 @@ export default function Chat() {
       {/* Main Chat Interface */}
       <main className="flex-1 flex flex-col h-full bg-[#0d1117] min-w-0">
         {/* Header Bar */}
-        <header className="h-14 border-b border-slate-800/80 bg-[#161b22]/70 backdrop-blur px-4 flex items-center justify-between shrink-0">
-          <div className="flex items-center gap-3 min-w-0">
-            <button
-              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className="p-1.5 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-slate-800 transition cursor-pointer"
-              title="Toggle sidebar"
-            >
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            </button>
+        <header className="h-14 border-b border-slate-800/80 bg-[#161b22]/70 backdrop-blur px-4 sm:px-6 flex items-center justify-between shrink-0 gap-2">
+          <div className="flex items-center min-w-0">
             <div className="min-w-0">
-              <h1 className="text-sm font-semibold text-slate-100 truncate">
+              <h1 className="text-xs sm:text-sm font-semibold text-slate-100 truncate max-w-xs sm:max-w-md md:max-w-lg">
                 {conversationTitle}
               </h1>
-              <p className="text-[10px] text-slate-400 truncate font-mono">
+              <p className="text-[9px] sm:text-[10px] text-slate-400 truncate font-mono hidden sm:block">
                 ID: {activeConversationId || "New Conversation"}
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+            {/* Plan Badge */}
+            <span className="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-xs font-semibold tracking-wide">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              Claude Max
+            </span>
+
             {/* Model Selector Dropdown */}
-            <div className="flex items-center gap-1.5 bg-slate-800/80 border border-slate-700/80 rounded-lg px-2 py-1 text-xs text-slate-200">
-              <span className="text-[10px] uppercase font-semibold text-slate-400">
+            <div className="flex items-center gap-1 sm:gap-1.5 bg-[#1c2128] border border-slate-700/80 rounded-lg px-2 sm:px-2.5 py-1 sm:py-1.5 text-xs text-slate-200">
+              <span className="text-[10px] uppercase font-semibold text-slate-400 hidden sm:inline">
                 Model:
               </span>
               <select
                 value={selectedModel}
                 onChange={(e) => setSelectedModel(e.target.value)}
-                className="bg-transparent text-xs text-emerald-400 font-medium outline-none cursor-pointer"
+                className="bg-transparent text-xs text-emerald-400 font-medium outline-none cursor-pointer max-w-[115px] sm:max-w-[150px] md:max-w-none truncate"
                 title="Select Claude Model"
               >
                 {AVAILABLE_MODELS.map((m) => (
@@ -916,32 +934,6 @@ export default function Chat() {
                   </option>
                 ))}
               </select>
-            </div>
-
-            <button
-              onClick={() => loadConversation(activeConversationId)}
-              disabled={isLoading || isSending}
-              className="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 font-medium transition cursor-pointer flex items-center gap-1.5 disabled:opacity-50"
-              title="Refresh conversation from Claude API"
-            >
-              <svg
-                className={`w-3.5 h-3.5 ${isLoading ? "animate-spin" : ""}`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                />
-              </svg>
-              Refresh
-            </button>
-            <div className="hidden sm:flex items-center gap-1.5 text-[11px] px-2.5 py-1 rounded-full bg-emerald-950/60 text-emerald-400 border border-emerald-800/40">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-              Live Proxy Active
             </div>
           </div>
         </header>
@@ -960,8 +952,8 @@ export default function Chat() {
         )}
 
         {/* Messages Scroll Area */}
-        <div className="flex-1 overflow-y-auto px-4 py-6">
-          <div className="max-w-3xl mx-auto space-y-4">
+        <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-6">
+          <div className="max-w-4xl lg:max-w-5xl mx-auto space-y-5">
             {isLoading ? (
               <div className="flex flex-col items-center justify-center h-64 text-slate-400 space-y-3">
                 <svg
@@ -1009,28 +1001,28 @@ export default function Chat() {
                 return (
                   <div
                     key={msgId}
-                    className={`flex gap-3 ${isHuman ? "justify-end" : "justify-start"}`}
+                    className={`flex gap-3 sm:gap-4 ${isHuman ? "justify-end" : "justify-start"} w-full`}
                   >
                     {!isHuman && (
-                      <div className="w-8 h-8 rounded-lg bg-emerald-700/40 border border-emerald-600/30 flex items-center justify-center text-emerald-300 font-bold text-xs shrink-0 select-none shadow-sm">
+                      <div className="w-8 h-8 rounded-full bg-emerald-600/30 border border-emerald-500/40 flex items-center justify-center text-emerald-300 font-bold text-xs shrink-0 select-none shadow-sm mt-0.5">
                         AI
                       </div>
                     )}
 
                     <div
-                      className={`relative max-w-[85%] rounded-2xl px-4 py-3 shadow-md ${
+                      className={`relative ${
                         isHuman
-                          ? "bg-emerald-600 text-white rounded-br-xs"
-                          : "bg-[#1c2128] border border-slate-800 text-slate-100 rounded-bl-xs"
+                          ? "max-w-[85%] sm:max-w-[75%] bg-[#222834] border border-slate-700/60 text-slate-100 rounded-2xl px-4 py-3 shadow-sm"
+                          : "w-full max-w-full bg-[#161b22]/70 border border-slate-800/80 text-slate-100 rounded-2xl p-4 sm:p-5 shadow-sm"
                       }`}
                     >
                       {/* Attached files preview in message bubble */}
                       {Array.isArray(msg.files) && msg.files.length > 0 && (
-                        <div className="mb-2 flex flex-wrap gap-2">
+                        <div className="mb-2.5 flex flex-wrap gap-2">
                           {msg.files.map((file, fIdx) => (
                             <div
                               key={fIdx}
-                              className="flex items-center gap-2 p-1.5 rounded-lg bg-black/30 border border-white/10 text-xs"
+                              className="flex items-center gap-2 p-1.5 rounded-lg bg-black/40 border border-white/10 text-xs"
                             >
                               {file.previewUrl ? (
                                 <img
@@ -1050,11 +1042,13 @@ export default function Chat() {
                       )}
 
                       {/* Header bar inside message bubble */}
-                      <div className="text-[11px] font-semibold opacity-75 mb-2 flex items-center justify-between gap-3 border-b border-white/5 pb-1 select-none">
+                      <div className="text-[12px] font-semibold text-slate-400 mb-2 flex items-center justify-between gap-3 border-b border-white/5 pb-1 select-none">
                         <div className="flex items-center gap-1.5">
-                          <span>{isHuman ? "You" : "Claude"}</span>
+                          <span className={isHuman ? "text-emerald-400" : "text-white font-medium"}>
+                            {isHuman ? "You" : "Claude"}
+                          </span>
                           {!isHuman && (
-                            <span className="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-mono border border-emerald-500/20">
+                            <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-mono border border-emerald-500/20">
                               {selectedModel}
                             </span>
                           )}
@@ -1108,11 +1102,11 @@ export default function Chat() {
                       </div>
 
                       {/* Content with Markdown, Code Mode & Syntax Highlighting */}
-                      <div className="leading-relaxed break-words">
+                      <div className="leading-6 sm:leading-7 break-words">
                         {text ? (
                           <MarkdownMessage content={text} isHuman={isHuman} />
                         ) : (
-                          <span className="italic text-slate-400 inline-flex items-center gap-1.5 py-1">
+                          <span className="italic text-slate-400 inline-flex items-center gap-2 py-1 text-sm">
                             <span className="animate-spin inline-block w-3.5 h-3.5 border-2 border-emerald-400 border-t-transparent rounded-full"></span>
                             Acho na Gosham....
                           </span>
@@ -1121,7 +1115,7 @@ export default function Chat() {
                     </div>
 
                     {isHuman && (
-                      <div className="w-8 h-8 rounded-lg bg-slate-700 flex items-center justify-center text-slate-200 font-medium text-xs shrink-0 select-none">
+                      <div className="w-8 h-8 rounded-full bg-slate-700/80 border border-slate-600/50 flex items-center justify-center text-slate-200 font-medium text-xs shrink-0 select-none shadow-sm mt-0.5">
                         U
                       </div>
                     )}
@@ -1134,16 +1128,15 @@ export default function Chat() {
         </div>
 
         {/* Input Bar Area */}
-        <div className="p-4 shrink-0">
+        <div className="p-2.5 sm:p-4 shrink-0">
           <form
             onSubmit={handleSend}
-            className="w-full max-w-[40%] mx-auto rounded-xl bg-[#1c2128] border border-slate-700 focus-within:border-emerald-500 shadow-lg transition-all duration-150 relative"
+            className="w-full sm:max-w-[85%] md:max-w-[75%] lg:max-w-[60%] mx-auto rounded-xl bg-[#1c2128] border border-slate-700 focus-within:border-emerald-500 shadow-lg transition-all duration-150 relative"
             style={{
               resize: "both",
               overflow: "hidden",
-              minWidth: "280px",
-              maxWidth: "40%",
-              minHeight: "56px",
+              minWidth: "260px",
+              minHeight: "52px",
             }}
           >
             {/* Attached files preview bar */}
