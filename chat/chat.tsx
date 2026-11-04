@@ -60,7 +60,7 @@ function CodeBlock({ language, code }: { language: string; code: string }) {
   return (
     <div className="my-3 rounded-xl border border-slate-700/80 bg-[#090d13] overflow-hidden shadow-lg">
       <div className="flex items-center justify-between px-3.5 py-1.5 bg-[#141a23] border-b border-slate-700/80 text-[11px] text-slate-300 select-none">
-        <span className="font-mono text-[#D97757] font-semibold tracking-wide uppercase text-[10px]">
+        <span className="font-mono text-[#0D1117] font-semibold tracking-wide uppercase text-[10px]">
           {language || "CODE"}
         </span>
         <button
@@ -72,7 +72,7 @@ function CodeBlock({ language, code }: { language: string; code: string }) {
           {copied ? (
             <>
               <svg
-                className="w-3.5 h-3.5 text-[#D97757]"
+                className="w-3.5 h-3.5 text-[#0D1117]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -84,7 +84,7 @@ function CodeBlock({ language, code }: { language: string; code: string }) {
                   d="M5 13l4 4L19 7"
                 />
               </svg>
-              <span className="text-[#D97757] font-medium">Copied!</span>
+              <span className="text-[#0D1117] font-medium">Copied!</span>
             </>
           ) : (
             <>
@@ -147,7 +147,7 @@ function MarkdownMessage({
             </h2>
           ),
           h3: ({ children }) => (
-            <h3 className="text-sm sm:text-base font-semibold text-[#D97757] mt-3 mb-1">
+            <h3 className="text-sm sm:text-base font-semibold text-[#0D1117] mt-3 mb-1">
               {children}
             </h3>
           ),
@@ -181,7 +181,7 @@ function MarkdownMessage({
             <li className="leading-6 sm:leading-7">{children}</li>
           ),
           blockquote: ({ children }) => (
-            <blockquote className="border-l-3 border-[#D97757] pl-3.5 py-1.5 my-2.5 bg-slate-800/40 rounded-r text-slate-300 italic text-[13px] sm:text-[14px]">
+            <blockquote className="border-l-3 border-[#0D1117] pl-3.5 py-1.5 my-2.5 bg-slate-800/40 rounded-r text-slate-300 italic text-[13px] sm:text-[14px]">
               {children}
             </blockquote>
           ),
@@ -207,7 +207,7 @@ function MarkdownMessage({
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#D97757] hover:text-[#f09a7d] underline underline-offset-2 transition"
+              className="text-[#0D1117] hover:text-[#f09a7d] underline underline-offset-2 transition"
             >
               {children}
             </a>
@@ -759,7 +759,7 @@ export default function Chat() {
         <div className="p-3.5 border-b border-slate-800 flex items-center justify-center">
           <div className="flex items-center gap-2">
             <img
-              src="/claude-claude-code.gif"
+              src="/Claude-logo.png"
               alt="Barche Code logo"
               className="w-8 h-8 object-contain rounded"
             />
@@ -779,7 +779,7 @@ export default function Chat() {
           <button
             type="button"
             onClick={handleNewChat}
-            className="w-full text-left px-3 py-2 rounded-lg bg-[#D97757] hover:bg-[#c8694b] text-white font-medium transition cursor-pointer flex items-center gap-2 shadow"
+            className="w-full text-left px-3 py-2 rounded-lg bg-[#0D1117] hover:bg-[#c8694b] text-white font-medium transition cursor-pointer flex items-center gap-2 shadow"
             title="Start New Chat"
           >
             <svg
@@ -809,7 +809,7 @@ export default function Chat() {
                   key={c.uuid}
                   className={`group relative flex items-center justify-between rounded-lg transition px-2.5 py-1.5 ${
                     isActive
-                      ? "bg-[#D97757]/20 text-[#f09a7d] border border-[#D97757]/40"
+                      ? "bg-[#0D1117]/20 text-[#f09a7d] border border-[#0D1117]/40"
                       : "text-slate-300 hover:bg-slate-800/60"
                   }`}
                 >
@@ -868,7 +868,7 @@ export default function Chat() {
         <div className="p-3 border-t border-slate-800/80 bg-[#12161f] text-[11px] text-slate-400 space-y-1">
           <div className="flex items-center justify-between">
             <span>Endpoint:</span>
-            <span className="font-mono text-[#D97757] text-[10px]">
+            <span className="font-mono text-[#0D1117] text-[10px]">
               barche.arifkoyani.com
             </span>
           </div>
@@ -880,7 +880,7 @@ export default function Chat() {
           </div>
           <div className="flex items-center justify-between">
             <span>Model:</span>
-            <span className="font-mono text-[#D97757] text-[10px] truncate max-w-[120px]">
+            <span className="font-mono text-[#0D1117] text-[10px] truncate max-w-[120px]">
               {selectedModel}
             </span>
           </div>
@@ -892,11 +892,11 @@ export default function Chat() {
         {/* Header Bar */}
         <header className="h-14 border-b border-slate-800/80 bg-[#161b22]/70 backdrop-blur px-3 sm:px-6 flex items-center justify-between shrink-0 gap-2">
           <div className="flex items-center min-w-0 gap-3">
-            {/* Sidebar Toggle Button in #D97757 placed just beside the left side of the conversation title */}
+            {/* Sidebar Toggle Button in #0D1117 placed just beside the left side of the conversation title */}
             <button
               type="button"
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#D97757]/15 hover:bg-[#D97757]/25 border border-[#D97757]/40 hover:border-[#D97757]/70 text-[#D97757] hover:text-[#f08a6b] transition-all active:scale-95 cursor-pointer shrink-0 shadow-md shadow-[#D97757]/10 flex items-center justify-center"
+              className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#0D1117]/15 hover:bg-[#0D1117]/25 border border-[#0D1117]/40 hover:border-[#0D1117]/70 text-[#0D1117] hover:text-[#f08a6b] transition-all active:scale-95 cursor-pointer shrink-0 shadow-md shadow-[#0D1117]/10 flex items-center justify-center"
               title={isSidebarOpen ? "Hide sidebar" : "Show sidebar"}
             >
               <svg
@@ -926,8 +926,8 @@ export default function Chat() {
 
           <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
             {/* Plan Badge */}
-            <span className="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#D97757]/15 border border-[#D97757]/30 text-[#D97757] text-xs font-semibold tracking-wide">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#D97757]"></span>
+            <span className="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0D1117]/15 border border-[#0D1117]/30 text-[#0D1117] text-xs font-semibold tracking-wide">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0D1117]"></span>
               Claude Max
             </span>
 
@@ -939,7 +939,7 @@ export default function Chat() {
               <select
                 value={selectedModel}
                 onChange={(e) => setSelectedModel(e.target.value)}
-                className="bg-transparent text-xs text-[#D97757] font-medium outline-none cursor-pointer max-w-[115px] sm:max-w-[150px] md:max-w-none truncate"
+                className="bg-transparent text-xs text-[#0D1117] font-medium outline-none cursor-pointer max-w-[115px] sm:max-w-[150px] md:max-w-none truncate"
                 title="Select Claude Model"
               >
                 {AVAILABLE_MODELS.map((m) => (
@@ -975,7 +975,7 @@ export default function Chat() {
             {isLoading ? (
               <div className="flex flex-col items-center justify-center h-64 text-slate-400 space-y-3">
                 <svg
-                  className="w-8 h-8 animate-spin text-[#D97757]"
+                  className="w-8 h-8 animate-spin text-[#0D1117]"
                   fill="none"
                   viewBox="0 0 24 24"
                 >
@@ -999,7 +999,7 @@ export default function Chat() {
               </div>
             ) : messages.length === 0 ? (
               <div className="flex flex-col items-center justify-center h-64 text-center text-slate-400 space-y-2">
-                <div className="w-12 h-12 rounded-2xl bg-[#D97757]/15 border border-[#D97757]/30 flex items-center justify-center text-[#D97757] text-xl font-bold">
+                <div className="w-12 h-12 rounded-2xl bg-[#0D1117]/15 border border-[#0D1117]/30 flex items-center justify-center text-[#0D1117] text-xl font-bold">
                   C
                 </div>
                 <h3 className="text-sm font-medium text-slate-200">
@@ -1022,7 +1022,7 @@ export default function Chat() {
                     className={`flex gap-3 sm:gap-4 ${isHuman ? "justify-end" : "justify-start"} w-full`}
                   >
                     {!isHuman && (
-                      <div className="w-8 h-8 rounded-full bg-[#D97757]/25 border border-[#D97757]/45 flex items-center justify-center text-[#f09a7d] font-bold text-xs shrink-0 select-none shadow-sm mt-0.5">
+                      <div className="w-8 h-8 rounded-full bg-[#0D1117]/25 border border-[#0D1117]/45 flex items-center justify-center text-[#f09a7d] font-bold text-xs shrink-0 select-none shadow-sm mt-0.5">
                         AI
                       </div>
                     )}
@@ -1065,14 +1065,14 @@ export default function Chat() {
                           <span
                             className={
                               isHuman
-                                ? "text-[#D97757]"
+                                ? "text-[#0D1117]"
                                 : "text-white font-medium"
                             }
                           >
                             {isHuman ? "You" : "Barche"}
                           </span>
                           {!isHuman && (
-                            <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#D97757]/15 text-[#D97757] font-mono border border-[#D97757]/30">
+                            <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#0D1117]/15 text-[#0D1117] font-mono border border-[#0D1117]/30">
                               {selectedModel}
                             </span>
                           )}
@@ -1087,7 +1087,7 @@ export default function Chat() {
                             {copiedId === msgId ? (
                               <>
                                 <svg
-                                  className="w-3.5 h-3.5 text-[#D97757]"
+                                  className="w-3.5 h-3.5 text-[#0D1117]"
                                   fill="none"
                                   stroke="currentColor"
                                   viewBox="0 0 24 24"
@@ -1099,7 +1099,7 @@ export default function Chat() {
                                     d="M5 13l4 4L19 7"
                                   />
                                 </svg>
-                                <span className="text-[#D97757] font-medium">
+                                <span className="text-[#0D1117] font-medium">
                                   Copied!
                                 </span>
                               </>
@@ -1131,7 +1131,11 @@ export default function Chat() {
                           <MarkdownMessage content={text} isHuman={isHuman} />
                         ) : (
                           <span className="italic text-slate-400 inline-flex items-center gap-2 py-1 text-sm">
-                            <span className="animate-spin inline-block w-3.5 h-3.5 border-2 border-[#D97757] border-t-transparent rounded-full"></span>
+                            <img
+                              src="/claude-claude-code.gif"
+                              alt="Thinking..."
+                              className="w-6 h-6 object-contain inline-block"
+                            />
                             Acho na Gosham....
                           </span>
                         )}
@@ -1155,7 +1159,7 @@ export default function Chat() {
         <div className="p-2.5 sm:p-4 shrink-0">
           <form
             onSubmit={handleSend}
-            className="w-full sm:max-w-[85%] md:max-w-[75%] lg:max-w-[60%] mx-auto rounded-xl bg-[#1c2128] border border-slate-700 focus-within:border-[#D97757] shadow-lg transition-all duration-150 relative"
+            className="w-full sm:max-w-[85%] md:max-w-[75%] lg:max-w-[60%] mx-auto rounded-xl bg-[#1c2128] border border-slate-700 focus-within:border-[#0D1117] shadow-lg transition-all duration-150 relative"
             style={{
               resize: "both",
               overflow: "hidden",
@@ -1184,7 +1188,7 @@ export default function Chat() {
                       {file.file_name}
                     </span>
                     {file.uploading ? (
-                      <span className="animate-spin text-[#D97757] text-xs">
+                      <span className="animate-spin text-[#0D1117] text-xs">
                         &#8635;
                       </span>
                     ) : (
@@ -1217,7 +1221,7 @@ export default function Chat() {
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
                 disabled={isUploading || isSending}
-                className="p-2.5 ml-2 mb-1 rounded-lg text-slate-400 hover:text-[#D97757] hover:bg-slate-800/60 transition cursor-pointer disabled:opacity-50 shrink-0"
+                className="p-2.5 ml-2 mb-1 rounded-lg text-slate-400 hover:text-[#0D1117] hover:bg-slate-800/60 transition cursor-pointer disabled:opacity-50 shrink-0"
                 title="Attach image or file"
               >
                 <svg
@@ -1260,7 +1264,7 @@ export default function Chat() {
                   isSending ||
                   isUploading
                 }
-                className="absolute right-5 bottom-2 p-2 rounded-lg bg-[#D97757] hover:bg-[#c8694b] disabled:bg-slate-800 disabled:text-slate-600 text-white transition active:scale-95 disabled:active:scale-100 cursor-pointer disabled:cursor-not-allowed shadow shrink-0"
+                className="absolute right-5 bottom-2 p-2 rounded-lg bg-[#0D1117] hover:bg-[#c8694b] disabled:bg-slate-800 disabled:text-slate-600 text-white transition active:scale-95 disabled:active:scale-100 cursor-pointer disabled:cursor-not-allowed shadow shrink-0"
                 title={isSending ? "Waiting for response..." : "Send message"}
               >
                 {isSending ? (
