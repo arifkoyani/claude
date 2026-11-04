@@ -1062,7 +1062,7 @@ export default function Chat() {
                         ) : (
                           <span className="italic text-slate-400 inline-flex items-center gap-1.5 py-1">
                             <span className="animate-spin inline-block w-3.5 h-3.5 border-2 border-emerald-400 border-t-transparent rounded-full"></span>
-                            Generating response...
+                            Acho na Gosham....
                           </span>
                         )}
                       </div>
