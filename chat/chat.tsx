@@ -59,20 +59,20 @@ function CodeBlock({ language, code }: { language: string; code: string }) {
 
   return (
     <div className="my-3 rounded-xl border border-slate-700/80 bg-[#090d13] overflow-hidden shadow-lg">
-      <div className="flex items-center justify-between px-3.5 py-1.5 bg-[#141a23] border-b border-slate-700/80 text-[11px] text-slate-300 select-none">
-        <span className="font-mono text-[#0D1117] font-semibold tracking-wide uppercase text-[10px]">
+      <div className="flex items-center justify-between px-3.5 py-1.5 bg-[#141a23] border-b border-slate-700/80 text-[11px] text-white select-none">
+        <span className="font-mono text-[#C16144] font-semibold tracking-wide uppercase text-[10px]">
           {language || "CODE"}
         </span>
         <button
           type="button"
           onClick={handleCopy}
-          className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-700/60 transition cursor-pointer font-sans text-[11px]"
+          className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-white hover:bg-slate-700/60 transition cursor-pointer font-sans text-[11px]"
           title="Copy code to clipboard"
         >
           {copied ? (
             <>
               <svg
-                className="w-3.5 h-3.5 text-[#0D1117]"
+                className="w-3.5 h-3.5 text-[#C16144]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -84,12 +84,12 @@ function CodeBlock({ language, code }: { language: string; code: string }) {
                   d="M5 13l4 4L19 7"
                 />
               </svg>
-              <span className="text-[#0D1117] font-medium">Copied!</span>
+              <span className="text-white font-medium">Copied!</span>
             </>
           ) : (
             <>
               <svg
-                className="w-3.5 h-3.5 text-slate-400"
+                className="w-3.5 h-3.5 text-slate-300"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -132,7 +132,7 @@ function MarkdownMessage({
   }
 
   return (
-    <div className="markdown-body leading-6 sm:leading-7 text-slate-100 text-[14px] sm:text-[15px]">
+    <div className="markdown-body leading-6 sm:leading-7 text-white text-[14px] sm:text-[15px]">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
@@ -142,22 +142,22 @@ function MarkdownMessage({
             </h1>
           ),
           h2: ({ children }) => (
-            <h2 className="text-base sm:text-lg font-bold text-[#e88c6e] mt-3.5 mb-1.5 pb-0.5 border-b border-slate-800/60">
+            <h2 className="text-base sm:text-lg font-bold text-white mt-3.5 mb-1.5 pb-0.5 border-b border-slate-800/60">
               {children}
             </h2>
           ),
           h3: ({ children }) => (
-            <h3 className="text-sm sm:text-base font-semibold text-[#0D1117] mt-3 mb-1">
+            <h3 className="text-sm sm:text-base font-semibold text-white mt-3 mb-1">
               {children}
             </h3>
           ),
           h4: ({ children }) => (
-            <h4 className="text-[13px] sm:text-sm font-semibold text-slate-200 mt-2 mb-1">
+            <h4 className="text-[13px] sm:text-sm font-semibold text-white mt-2 mb-1">
               {children}
             </h4>
           ),
           p: ({ children }) => (
-            <p className="mb-2.5 last:mb-0 leading-6 sm:leading-7 text-[14px] sm:text-[15px]">
+            <p className="mb-2.5 last:mb-0 leading-6 sm:leading-7 text-white text-[14px] sm:text-[15px]">
               {children}
             </p>
           ),
@@ -165,40 +165,40 @@ function MarkdownMessage({
             <strong className="font-semibold text-white">{children}</strong>
           ),
           em: ({ children }) => (
-            <em className="italic text-slate-300">{children}</em>
+            <em className="italic text-slate-200">{children}</em>
           ),
           ul: ({ children }) => (
-            <ul className="list-disc list-outside ml-5 space-y-1 mb-2.5 text-slate-200 text-[14px] sm:text-[15px]">
+            <ul className="list-disc list-outside ml-5 space-y-1 mb-2.5 text-white text-[14px] sm:text-[15px]">
               {children}
             </ul>
           ),
           ol: ({ children }) => (
-            <ol className="list-decimal list-outside ml-5 space-y-1 mb-2.5 text-slate-200 text-[14px] sm:text-[15px]">
+            <ol className="list-decimal list-outside ml-5 space-y-1 mb-2.5 text-white text-[14px] sm:text-[15px]">
               {children}
             </ol>
           ),
           li: ({ children }) => (
-            <li className="leading-6 sm:leading-7">{children}</li>
+            <li className="leading-6 sm:leading-7 text-white">{children}</li>
           ),
           blockquote: ({ children }) => (
-            <blockquote className="border-l-3 border-[#0D1117] pl-3.5 py-1.5 my-2.5 bg-slate-800/40 rounded-r text-slate-300 italic text-[13px] sm:text-[14px]">
+            <blockquote className="border-l-3 border-[#C16144] pl-3.5 py-1.5 my-2.5 bg-slate-800/40 rounded-r text-white italic text-[13px] sm:text-[14px]">
               {children}
             </blockquote>
           ),
           table: ({ children }) => (
             <div className="overflow-x-auto my-3 border border-slate-700/80 rounded-lg">
-              <table className="min-w-full divide-y divide-slate-700/80 text-xs sm:text-sm">
+              <table className="min-w-full divide-y divide-slate-700/80 text-xs sm:text-sm text-white">
                 {children}
               </table>
             </div>
           ),
           th: ({ children }) => (
-            <th className="px-3 py-2 bg-slate-800/80 text-left font-semibold text-slate-200">
+            <th className="px-3 py-2 bg-slate-800/80 text-left font-semibold text-white">
               {children}
             </th>
           ),
           td: ({ children }) => (
-            <td className="px-3 py-1.5 border-t border-slate-800 text-slate-300">
+            <td className="px-3 py-1.5 border-t border-slate-800 text-white">
               {children}
             </td>
           ),
@@ -207,7 +207,7 @@ function MarkdownMessage({
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#0D1117] hover:text-[#f09a7d] underline underline-offset-2 transition"
+              className="text-[#C16144] hover:text-white underline underline-offset-2 transition font-medium"
             >
               {children}
             </a>
@@ -225,7 +225,7 @@ function MarkdownMessage({
 
             return (
               <code
-                className="bg-slate-800/90 text-[#f09a7d] px-1.5 py-0.5 rounded font-mono text-[11px] sm:text-[12px] border border-slate-700/60"
+                className="bg-slate-800/90 text-white px-1.5 py-0.5 rounded font-mono text-[11px] sm:text-[12px] border border-slate-700/60"
                 {...props}
               >
                 {children}
@@ -779,7 +779,7 @@ export default function Chat() {
           <button
             type="button"
             onClick={handleNewChat}
-            className="w-full text-left px-3 py-2 rounded-lg bg-[#0D1117] hover:bg-[#c8694b] text-white font-medium transition cursor-pointer flex items-center gap-2 shadow"
+            className="w-full text-left px-3 py-2 rounded-lg bg-[#C16144] hover:bg-[#a84f35] text-white font-medium transition cursor-pointer flex items-center gap-2 shadow"
             title="Start New Chat"
           >
             <svg
@@ -809,8 +809,8 @@ export default function Chat() {
                   key={c.uuid}
                   className={`group relative flex items-center justify-between rounded-lg transition px-2.5 py-1.5 ${
                     isActive
-                      ? "bg-[#0D1117]/20 text-[#f09a7d] border border-[#0D1117]/40"
-                      : "text-slate-300 hover:bg-slate-800/60"
+                      ? "bg-[#C16144]/25 text-white border border-[#C16144]/50"
+                      : "text-slate-300 hover:bg-slate-800/60 hover:text-white"
                   }`}
                 >
                   <button
@@ -868,19 +868,19 @@ export default function Chat() {
         <div className="p-3 border-t border-slate-800/80 bg-[#12161f] text-[11px] text-slate-400 space-y-1">
           <div className="flex items-center justify-between">
             <span>Endpoint:</span>
-            <span className="font-mono text-[#0D1117] text-[10px]">
+            <span className="font-mono text-white text-[10px]">
               barche.arifkoyani.com
             </span>
           </div>
           <div className="flex items-center justify-between">
             <span>Org ID:</span>
-            <span className="font-mono text-slate-400 text-[10px] truncate max-w-[120px]">
+            <span className="font-mono text-white text-[10px] truncate max-w-[120px]">
               51fb24b0...
             </span>
           </div>
           <div className="flex items-center justify-between">
             <span>Model:</span>
-            <span className="font-mono text-[#0D1117] text-[10px] truncate max-w-[120px]">
+            <span className="font-mono text-[#C16144] font-semibold text-[10px] truncate max-w-[120px]">
               {selectedModel}
             </span>
           </div>
@@ -892,15 +892,15 @@ export default function Chat() {
         {/* Header Bar */}
         <header className="h-14 border-b border-slate-800/80 bg-[#161b22]/70 backdrop-blur px-3 sm:px-6 flex items-center justify-between shrink-0 gap-2">
           <div className="flex items-center min-w-0 gap-3">
-            {/* Sidebar Toggle Button in #0D1117 placed just beside the left side of the conversation title */}
+            {/* Sidebar Toggle Button in #C16144 placed just beside the left side of the conversation title */}
             <button
               type="button"
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#0D1117]/15 hover:bg-[#0D1117]/25 border border-[#0D1117]/40 hover:border-[#0D1117]/70 text-[#0D1117] hover:text-[#f08a6b] transition-all active:scale-95 cursor-pointer shrink-0 shadow-md shadow-[#0D1117]/10 flex items-center justify-center"
+              className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#C16144] hover:bg-[#a84f35] border border-[#C16144] text-white transition-all active:scale-95 cursor-pointer shrink-0 shadow-md shadow-[#C16144]/25 flex items-center justify-center"
               title={isSidebarOpen ? "Hide sidebar" : "Show sidebar"}
             >
               <svg
-                className="w-5 h-5 sm:w-5.5 sm:h-5.5"
+                className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-white"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -915,10 +915,10 @@ export default function Chat() {
             </button>
 
             <div className="min-w-0">
-              <h1 className="text-xs sm:text-sm font-semibold text-slate-100 truncate max-w-xs sm:max-w-md md:max-w-lg">
+              <h1 className="text-xs sm:text-sm font-semibold text-white truncate max-w-xs sm:max-w-md md:max-w-lg">
                 {conversationTitle}
               </h1>
-              <p className="text-[9px] sm:text-[10px] text-slate-400 truncate font-mono hidden sm:block">
+              <p className="text-[9px] sm:text-[10px] text-slate-300 truncate font-mono hidden sm:block">
                 ID: {activeConversationId || "New Conversation"}
               </p>
             </div>
@@ -926,27 +926,27 @@ export default function Chat() {
 
           <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
             {/* Plan Badge */}
-            <span className="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0D1117]/15 border border-[#0D1117]/30 text-[#0D1117] text-xs font-semibold tracking-wide">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#0D1117]"></span>
+            <span className="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#C16144]/20 border border-[#C16144]/40 text-white text-xs font-semibold tracking-wide">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C16144]"></span>
               Claude Max
             </span>
 
             {/* Model Selector Dropdown */}
-            <div className="flex items-center gap-1 sm:gap-1.5 bg-[#1c2128] border border-slate-700/80 rounded-lg px-2 sm:px-2.5 py-1 sm:py-1.5 text-xs text-slate-200">
-              <span className="text-[10px] uppercase font-semibold text-slate-400 hidden sm:inline">
+            <div className="flex items-center gap-1 sm:gap-1.5 bg-[#1c2128] border border-slate-700/80 rounded-lg px-2 sm:px-2.5 py-1 sm:py-1.5 text-xs text-white">
+              <span className="text-[10px] uppercase font-semibold text-slate-300 hidden sm:inline">
                 Model:
               </span>
               <select
                 value={selectedModel}
                 onChange={(e) => setSelectedModel(e.target.value)}
-                className="bg-transparent text-xs text-[#0D1117] font-medium outline-none cursor-pointer max-w-[115px] sm:max-w-[150px] md:max-w-none truncate"
+                className="bg-transparent text-xs text-white font-medium outline-none cursor-pointer max-w-[115px] sm:max-w-[150px] md:max-w-none truncate"
                 title="Select Claude Model"
               >
                 {AVAILABLE_MODELS.map((m) => (
                   <option
                     key={m.id}
                     value={m.id}
-                    className="bg-[#161b22] text-slate-200"
+                    className="bg-[#161b22] text-white"
                   >
                     {m.label}
                   </option>
