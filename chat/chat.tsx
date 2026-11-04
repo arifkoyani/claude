@@ -124,7 +124,11 @@ function MarkdownMessage({
   isHuman: boolean;
 }) {
   if (isHuman) {
-    return <div className="whitespace-pre-wrap leading-6 text-[14px] sm:text-[15px]">{content}</div>;
+    return (
+      <div className="whitespace-pre-wrap leading-6 text-[14px] sm:text-[15px]">
+        {content}
+      </div>
+    );
   }
 
   return (
@@ -153,12 +157,12 @@ function MarkdownMessage({
             </h4>
           ),
           p: ({ children }) => (
-            <p className="mb-2.5 last:mb-0 leading-6 sm:leading-7 text-[14px] sm:text-[15px]">{children}</p>
+            <p className="mb-2.5 last:mb-0 leading-6 sm:leading-7 text-[14px] sm:text-[15px]">
+              {children}
+            </p>
           ),
           strong: ({ children }) => (
-            <strong className="font-semibold text-white">
-              {children}
-            </strong>
+            <strong className="font-semibold text-white">{children}</strong>
           ),
           em: ({ children }) => (
             <em className="italic text-slate-300">{children}</em>
@@ -173,7 +177,9 @@ function MarkdownMessage({
               {children}
             </ol>
           ),
-          li: ({ children }) => <li className="leading-6 sm:leading-7">{children}</li>,
+          li: ({ children }) => (
+            <li className="leading-6 sm:leading-7">{children}</li>
+          ),
           blockquote: ({ children }) => (
             <blockquote className="border-l-3 border-emerald-500/80 pl-3.5 py-1.5 my-2.5 bg-slate-800/40 rounded-r text-slate-300 italic text-[13px] sm:text-[14px]">
               {children}
@@ -236,8 +242,7 @@ function MarkdownMessage({
 
 export default function Chat() {
   const [conversations, setConversations] = useState<ConversationItem[]>([]);
-  const [selectedModel, setSelectedModel] =
-    useState<string>("claude-sonnet-5");
+  const [selectedModel, setSelectedModel] = useState<string>("claude-sonnet-5");
   const [activeConversationId, setActiveConversationId] = useState<string>(
     "179735f2-87af-448e-8956-4723fc61c443",
   );
@@ -755,19 +760,31 @@ export default function Chat() {
           <div className="flex items-center gap-2">
             <img
               src="/Claude-logo.png"
-              alt="claudex logo"
+              alt="barchi logo"
               className="w-7 h-7 object-contain rounded"
             />
-            <span className="font-bold text-sm text-slate-100 tracking-wide">claudex</span>
-            {/* Sidebar Hide Button right side of logo and claudex */}
+            <span className="font-bold text-sm text-slate-100 tracking-wide">
+              Barchi ai
+            </span>
+            {/* Sidebar Hide Button right side of logo and BARCHI AI */}
             <button
               type="button"
               onClick={() => setIsSidebarOpen(false)}
               className="p-1.5 ml-1 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-slate-800 transition cursor-pointer"
               title="Hide sidebar"
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 5a2 2 0 012-2h12a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V5z M9 3v18" />
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 5a2 2 0 012-2h12a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V5z M9 3v18"
+                />
               </svg>
             </button>
           </div>
@@ -895,28 +912,28 @@ export default function Chat() {
       <main className="flex-1 flex flex-col h-full bg-[#0d1117] min-w-0">
         {/* Header Bar */}
         <header className="h-14 border-b border-slate-800/80 bg-[#161b22]/70 backdrop-blur px-3 sm:px-6 flex items-center justify-between shrink-0 gap-2">
-          <div className="flex items-center min-w-0 gap-2.5 sm:gap-3">
-            {/* When sidebar is hidden: show logo and claudex with Show Sidebar button just to the right */}
-            {!isSidebarOpen && (
-              <div className="flex items-center gap-2 shrink-0 pr-2 sm:pr-3 border-r border-slate-800">
-                <img
-                  src="/Claude-logo.png"
-                  alt="claudex logo"
-                  className="w-6 h-6 object-contain rounded"
+          <div className="flex items-center min-w-0 gap-3">
+            {/* Sidebar Toggle Button in #D97757 placed just beside the left side of the conversation title */}
+            <button
+              type="button"
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#D97757]/15 hover:bg-[#D97757]/25 border border-[#D97757]/40 hover:border-[#D97757]/70 text-[#D97757] hover:text-[#f08a6b] transition-all active:scale-95 cursor-pointer shrink-0 shadow-md shadow-[#D97757]/10 flex items-center justify-center"
+              title={isSidebarOpen ? "Hide sidebar" : "Show sidebar"}
+            >
+              <svg
+                className="w-5 h-5 sm:w-5.5 sm:h-5.5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2.2"
+                  d="M4 5a2 2 0 012-2h12a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V5z M9 3v18"
                 />
-                <span className="font-bold text-sm text-slate-100 tracking-wide">claudex</span>
-                <button
-                  type="button"
-                  onClick={() => setIsSidebarOpen(true)}
-                  className="p-1.5 ml-0.5 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-slate-800 transition cursor-pointer"
-                  title="Show sidebar"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 5a2 2 0 012-2h12a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V5z M9 3v18" />
-                  </svg>
-                </button>
-              </div>
-            )}
+              </svg>
+            </button>
 
             <div className="min-w-0">
               <h1 className="text-xs sm:text-sm font-semibold text-slate-100 truncate max-w-xs sm:max-w-md md:max-w-lg">
@@ -1066,7 +1083,13 @@ export default function Chat() {
                       {/* Header bar inside message bubble */}
                       <div className="text-[12px] font-semibold text-slate-400 mb-2 flex items-center justify-between gap-3 border-b border-white/5 pb-1 select-none">
                         <div className="flex items-center gap-1.5">
-                          <span className={isHuman ? "text-emerald-400" : "text-white font-medium"}>
+                          <span
+                            className={
+                              isHuman
+                                ? "text-emerald-400"
+                                : "text-white font-medium"
+                            }
+                          >
                             {isHuman ? "You" : "Claude"}
                           </span>
                           {!isHuman && (
