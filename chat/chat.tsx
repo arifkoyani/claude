@@ -760,7 +760,7 @@ export default function Chat() {
           <div className="flex items-center gap-2">
             <img
               src="/claude-claude-code.gif"
-              alt="Claude Code logo"
+              alt="Barche Code logo"
               className="w-8 h-8 object-contain rounded"
             />
             <span className="font-bold text-sm text-slate-100 tracking-wide">
