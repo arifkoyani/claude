@@ -1085,12 +1085,12 @@ export default function Chat() {
         <div className="p-4 shrink-0">
           <form
             onSubmit={handleSend}
-            className="w-full max-w-[60%] mx-auto rounded-xl bg-[#1c2128] border border-slate-700 focus-within:border-emerald-500 shadow-lg transition-all duration-150 relative"
+            className="w-full max-w-[40%] mx-auto rounded-xl bg-[#1c2128] border border-slate-700 focus-within:border-emerald-500 shadow-lg transition-all duration-150 relative"
             style={{
               resize: "both",
               overflow: "hidden",
               minWidth: "280px",
-              maxWidth: "60%",
+              maxWidth: "40%",
               minHeight: "56px",
             }}
           >
