@@ -95,12 +95,12 @@ export async function GET(request: NextRequest) {
     // Fallback: return clean conversation session
     return NextResponse.json({
       uuid: targetConvId,
-      name: "Claude Conversation",
+      name: "Barche Conversation",
       chat_messages: [],
     });
   } catch (err: any) {
     return NextResponse.json(
-      { error: err.message || "Failed to fetch from Claude API" },
+      { error: err.message || "Failed to fetch from Barche API" },
       { status: 500 }
     );
   }

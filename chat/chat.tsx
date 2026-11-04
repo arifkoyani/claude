@@ -760,33 +760,13 @@ export default function Chat() {
           <div className="flex items-center gap-2">
             <img
               src="/Claude-logo.png"
-              alt="barchi logo"
+              alt="barche logo"
               className="w-7 h-7 object-contain rounded"
             />
             <span className="font-bold text-sm text-slate-100 tracking-wide">
-              Barchi ai
+              Barche ai
             </span>
-            {/* Sidebar Hide Button right side of logo and BARCHI AI */}
-            <button
-              type="button"
-              onClick={() => setIsSidebarOpen(false)}
-              className="p-1.5 ml-1 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-slate-800 transition cursor-pointer"
-              title="Hide sidebar"
-            >
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 5a2 2 0 012-2h12a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V5z M9 3v18"
-                />
-              </svg>
-            </button>
+            {/* Sidebar Hide Button right side of logo and BARCHe AI */}
           </div>
         </div>
 
@@ -890,7 +870,7 @@ export default function Chat() {
           <div className="flex items-center justify-between">
             <span>Endpoint:</span>
             <span className="font-mono text-emerald-400 text-[10px]">
-              claude.arifkoyani.com
+              barche.arifkoyani.com
             </span>
           </div>
           <div className="flex items-center justify-between">
@@ -1015,7 +995,7 @@ export default function Chat() {
                   />
                 </svg>
                 <p className="text-xs">
-                  Connecting to Claude and fetching conversation...
+                  Connecting to barche and fetching conversation...
                 </p>
               </div>
             ) : messages.length === 0 ? (
@@ -1028,7 +1008,7 @@ export default function Chat() {
                 </h3>
                 <p className="text-xs text-slate-500 max-w-sm">
                   Send a message, upload images or files to communicate with
-                  Claude using your authenticated session.
+                  barche using your authenticated session.
                 </p>
               </div>
             ) : (
@@ -1090,7 +1070,7 @@ export default function Chat() {
                                 : "text-white font-medium"
                             }
                           >
-                            {isHuman ? "You" : "Claude"}
+                            {isHuman ? "You" : "Barche"}
                           </span>
                           {!isHuman && (
                             <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-mono border border-emerald-500/20">
