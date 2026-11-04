@@ -398,6 +398,31 @@ export default function Chat() {
     });
   };
 
+  const handleDeleteConversation = async (convId: string) => {
+    const target = conversations.find((c) => c.uuid === convId);
+    const title = target?.name || "this chat";
+    if (!confirm(`Are you sure you want to delete "${title}"?`)) return;
+
+    const updated = conversations.filter((c) => c.uuid !== convId);
+    setConversations(updated);
+    try {
+      localStorage.setItem("claude_conversations", JSON.stringify(updated));
+      localStorage.removeItem(`claude_msgs_${convId}`);
+    } catch {}
+
+    try {
+      await fetch(`/api/chat?conversationId=${convId}`, { method: "DELETE" });
+    } catch {}
+
+    if (activeConversationId === convId) {
+      if (updated.length > 0) {
+        handleSelectConversation(updated[0].uuid);
+      } else {
+        handleNewChat();
+      }
+    }
+  };
+
   const handleCopyText = (id: string, text: string) => {
     navigator.clipboard.writeText(text);
     setCopiedId(id);
@@ -755,31 +780,58 @@ export default function Chat() {
             conversations.map((c) => {
               const isActive = c.uuid === activeConversationId;
               return (
-                <button
+                <div
                   key={c.uuid}
-                  onClick={() => handleSelectConversation(c.uuid)}
-                  className={`w-full text-left px-3 py-2 rounded-lg transition truncate cursor-pointer flex items-center gap-2 ${
+                  className={`group relative flex items-center justify-between rounded-lg transition px-2.5 py-1.5 ${
                     isActive
                       ? "bg-emerald-600/20 text-emerald-300 border border-emerald-500/30"
                       : "text-slate-300 hover:bg-slate-800/60"
                   }`}
-                  title={c.name || c.uuid}
                 >
-                  <svg
-                    className="w-3.5 h-3.5 shrink-0 opacity-70"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+                  <button
+                    onClick={() => handleSelectConversation(c.uuid)}
+                    className="flex-1 text-left truncate cursor-pointer flex items-center gap-2 mr-1 min-w-0"
+                    title={c.name || c.uuid}
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
-                    />
-                  </svg>
-                  <span className="truncate">{c.name || "Untitled Chat"}</span>
-                </button>
+                    <svg
+                      className="w-3.5 h-3.5 shrink-0 opacity-70"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+                      />
+                    </svg>
+                    <span className="truncate">{c.name || "Untitled Chat"}</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDeleteConversation(c.uuid);
+                    }}
+                    className="opacity-0 group-hover:opacity-100 p-1 hover:text-red-400 text-slate-500 hover:bg-slate-700/50 rounded transition cursor-pointer shrink-0"
+                    title="Delete chat"
+                  >
+                    <svg
+                      className="w-3.5 h-3.5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                      />
+                    </svg>
+                  </button>
+                </div>
               );
             })
           )}

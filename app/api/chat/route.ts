@@ -106,6 +106,23 @@ export async function GET(request: NextRequest) {
   }
 }
 
+// DELETE: Delete a conversation by conversationId
+export async function DELETE(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const conversationId = searchParams.get("conversationId");
+  if (!conversationId) {
+    return NextResponse.json({ error: "Missing conversationId" }, { status: 400 });
+  }
+
+  const { baseUrl, orgId, headers } = getClaudeConfig();
+  try {
+    const url = `${baseUrl}/api/organizations/${orgId}/chat_conversations/${conversationId}`;
+    await fetch(url, { method: "DELETE", headers });
+  } catch {}
+
+  return NextResponse.json({ success: true, deleted: conversationId });
+}
+
 // POST: Send a message to a conversation and stream the response
 export async function POST(request: NextRequest) {
   const { baseUrl, orgId, headers } = getClaudeConfig();
