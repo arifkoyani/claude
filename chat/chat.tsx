@@ -973,9 +973,9 @@ export default function Chat() {
         <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-6">
           <div className="max-w-4xl lg:max-w-5xl mx-auto space-y-5">
             {isLoading ? (
-              <div className="flex flex-col items-center justify-center h-64 text-slate-400 space-y-3">
+              <div className="flex flex-col items-center justify-center h-64 text-slate-300 space-y-3">
                 <svg
-                  className="w-8 h-8 animate-spin text-[#0D1117]"
+                  className="w-8 h-8 animate-spin text-[#C16144]"
                   fill="none"
                   viewBox="0 0 24 24"
                 >
@@ -993,19 +993,19 @@ export default function Chat() {
                     d="M4 12a8 8 0 018-8v8H4z"
                   />
                 </svg>
-                <p className="text-xs">
+                <p className="text-xs text-slate-300">
                   Connecting to barche and fetching conversation...
                 </p>
               </div>
             ) : messages.length === 0 ? (
-              <div className="flex flex-col items-center justify-center h-64 text-center text-slate-400 space-y-2">
-                <div className="w-12 h-12 rounded-2xl bg-[#0D1117]/15 border border-[#0D1117]/30 flex items-center justify-center text-[#0D1117] text-xl font-bold">
+              <div className="flex flex-col items-center justify-center h-64 text-center text-slate-300 space-y-2">
+                <div className="w-12 h-12 rounded-2xl bg-[#C16144] border border-[#C16144] flex items-center justify-center text-white text-xl font-bold shadow-md shadow-[#C16144]/30">
                   C
                 </div>
-                <h3 className="text-sm font-medium text-slate-200">
+                <h3 className="text-sm font-medium text-white">
                   Start a new conversation
                 </h3>
-                <p className="text-xs text-slate-500 max-w-sm">
+                <p className="text-xs text-slate-300 max-w-sm">
                   Send a message, upload images or files to communicate with
                   barche using your authenticated session.
                 </p>
@@ -1022,7 +1022,7 @@ export default function Chat() {
                     className={`flex gap-3 sm:gap-4 ${isHuman ? "justify-end" : "justify-start"} w-full`}
                   >
                     {!isHuman && (
-                      <div className="w-8 h-8 rounded-full bg-[#0D1117]/25 border border-[#0D1117]/45 flex items-center justify-center text-[#f09a7d] font-bold text-xs shrink-0 select-none shadow-sm mt-0.5">
+                      <div className="w-8 h-8 rounded-full bg-[#C16144] border border-[#C16144] flex items-center justify-center text-white font-bold text-xs shrink-0 select-none shadow-sm mt-0.5">
                         AI
                       </div>
                     )}
@@ -1030,8 +1030,8 @@ export default function Chat() {
                     <div
                       className={`relative ${
                         isHuman
-                          ? "max-w-[85%] sm:max-w-[75%] bg-[#222834] border border-slate-700/60 text-slate-100 rounded-2xl px-4 py-3 shadow-sm"
-                          : "w-full max-w-full bg-[#161b22]/70 border border-slate-800/80 text-slate-100 rounded-2xl p-4 sm:p-5 shadow-sm"
+                          ? "max-w-[85%] sm:max-w-[75%] bg-[#222834] border border-slate-700/60 text-white rounded-2xl px-4 py-3 shadow-sm"
+                          : "w-full max-w-full bg-[#161b22]/70 border border-slate-800/80 text-white rounded-2xl p-4 sm:p-5 shadow-sm"
                       }`}
                     >
                       {/* Attached files preview in message bubble */}
@@ -1040,7 +1040,7 @@ export default function Chat() {
                           {msg.files.map((file, fIdx) => (
                             <div
                               key={fIdx}
-                              className="flex items-center gap-2 p-1.5 rounded-lg bg-black/40 border border-white/10 text-xs"
+                              className="flex items-center gap-2 p-1.5 rounded-lg bg-black/40 border border-white/10 text-xs text-white"
                             >
                               {file.previewUrl ? (
                                 <img
@@ -1060,19 +1060,13 @@ export default function Chat() {
                       )}
 
                       {/* Header bar inside message bubble */}
-                      <div className="text-[12px] font-semibold text-slate-400 mb-2 flex items-center justify-between gap-3 border-b border-white/5 pb-1 select-none">
+                      <div className="text-[12px] font-semibold text-slate-300 mb-2 flex items-center justify-between gap-3 border-b border-white/5 pb-1 select-none">
                         <div className="flex items-center gap-1.5">
-                          <span
-                            className={
-                              isHuman
-                                ? "text-[#0D1117]"
-                                : "text-white font-medium"
-                            }
-                          >
+                          <span className="text-white font-medium">
                             {isHuman ? "You" : "Barche"}
                           </span>
                           {!isHuman && (
-                            <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#0D1117]/15 text-[#0D1117] font-mono border border-[#0D1117]/30">
+                            <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#C16144]/20 text-white font-mono border border-[#C16144]/40">
                               {selectedModel}
                             </span>
                           )}
@@ -1087,7 +1081,7 @@ export default function Chat() {
                             {copiedId === msgId ? (
                               <>
                                 <svg
-                                  className="w-3.5 h-3.5 text-[#0D1117]"
+                                  className="w-3.5 h-3.5 text-[#C16144]"
                                   fill="none"
                                   stroke="currentColor"
                                   viewBox="0 0 24 24"
@@ -1099,7 +1093,7 @@ export default function Chat() {
                                     d="M5 13l4 4L19 7"
                                   />
                                 </svg>
-                                <span className="text-[#0D1117] font-medium">
+                                <span className="text-white font-medium">
                                   Copied!
                                 </span>
                               </>
@@ -1126,24 +1120,24 @@ export default function Chat() {
                       </div>
 
                       {/* Content with Markdown, Code Mode & Syntax Highlighting */}
-                      <div className="leading-6 sm:leading-7 break-words">
+                      <div className="leading-6 sm:leading-7 break-words text-white">
                         {text ? (
                           <MarkdownMessage content={text} isHuman={isHuman} />
                         ) : (
-                          <span className="italic text-slate-400 inline-flex items-center gap-2 py-1 text-sm">
+                          <span className="italic text-white inline-flex items-center gap-2 py-1 text-sm">
                             <img
                               src="/claude-claude-code.gif"
                               alt="Thinking..."
                               className="w-6 h-6 object-contain inline-block"
                             />
-                            Acho na Gosham....
+                            <span>Acho na Gosham....</span>
                           </span>
                         )}
                       </div>
                     </div>
 
                     {isHuman && (
-                      <div className="w-8 h-8 rounded-full bg-slate-700/80 border border-slate-600/50 flex items-center justify-center text-slate-200 font-medium text-xs shrink-0 select-none shadow-sm mt-0.5">
+                      <div className="w-8 h-8 rounded-full bg-slate-700/80 border border-slate-600/50 flex items-center justify-center text-white font-medium text-xs shrink-0 select-none shadow-sm mt-0.5">
                         U
                       </div>
                     )}
@@ -1159,7 +1153,7 @@ export default function Chat() {
         <div className="p-2.5 sm:p-4 shrink-0">
           <form
             onSubmit={handleSend}
-            className="w-full sm:max-w-[85%] md:max-w-[75%] lg:max-w-[60%] mx-auto rounded-xl bg-[#1c2128] border border-slate-700 focus-within:border-[#0D1117] shadow-lg transition-all duration-150 relative"
+            className="w-full sm:max-w-[85%] md:max-w-[75%] lg:max-w-[60%] mx-auto rounded-xl bg-[#1c2128] border border-slate-700 focus-within:border-[#C16144] shadow-lg transition-all duration-150 relative"
             style={{
               resize: "both",
               overflow: "hidden",
@@ -1173,7 +1167,7 @@ export default function Chat() {
                 {attachedFiles.map((file, idx) => (
                   <div
                     key={idx}
-                    className="flex items-center gap-2 px-2.5 py-1 rounded-lg bg-slate-800/90 border border-slate-700 text-xs text-slate-200"
+                    className="flex items-center gap-2 px-2.5 py-1 rounded-lg bg-slate-800/90 border border-slate-700 text-xs text-white"
                   >
                     {file.previewUrl ? (
                       <img
@@ -1184,11 +1178,11 @@ export default function Chat() {
                     ) : (
                       <span>📄</span>
                     )}
-                    <span className="truncate max-w-[140px] text-[11px]">
+                    <span className="truncate max-w-[140px] text-[11px] text-white">
                       {file.file_name}
                     </span>
                     {file.uploading ? (
-                      <span className="animate-spin text-[#0D1117] text-xs">
+                      <span className="animate-spin text-[#C16144] text-xs">
                         &#8635;
                       </span>
                     ) : (
@@ -1221,7 +1215,7 @@ export default function Chat() {
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
                 disabled={isUploading || isSending}
-                className="p-2.5 ml-2 mb-1 rounded-lg text-slate-400 hover:text-[#0D1117] hover:bg-slate-800/60 transition cursor-pointer disabled:opacity-50 shrink-0"
+                className="p-2.5 ml-2 mb-1 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition cursor-pointer disabled:opacity-50 shrink-0"
                 title="Attach image or file"
               >
                 <svg
@@ -1252,7 +1246,7 @@ export default function Chat() {
                   }
                 }}
                 placeholder="Ask Claude anything or attach an image/file... (Enter to send, Shift + Enter for new line)"
-                className="flex-1 bg-transparent px-3 py-2.5 pr-16 text-xs sm:text-sm text-slate-100 placeholder-slate-500 outline-none resize-none overflow-y-auto leading-relaxed transition-[height] duration-75"
+                className="flex-1 bg-transparent px-3 py-2.5 pr-16 text-xs sm:text-sm text-white placeholder-slate-400 outline-none resize-none overflow-y-auto leading-relaxed transition-[height] duration-75"
                 style={{ minHeight: "44px", maxHeight: "260px" }}
               />
 
@@ -1264,7 +1258,7 @@ export default function Chat() {
                   isSending ||
                   isUploading
                 }
-                className="absolute right-5 bottom-2 p-2 rounded-lg bg-[#0D1117] hover:bg-[#c8694b] disabled:bg-slate-800 disabled:text-slate-600 text-white transition active:scale-95 disabled:active:scale-100 cursor-pointer disabled:cursor-not-allowed shadow shrink-0"
+                className="absolute right-5 bottom-2 p-2 rounded-lg bg-[#C16144] hover:bg-[#a84f35] disabled:bg-slate-800 disabled:text-slate-500 text-white transition active:scale-95 disabled:active:scale-100 cursor-pointer disabled:cursor-not-allowed shadow shrink-0"
                 title={isSending ? "Waiting for response..." : "Send message"}
               >
                 {isSending ? (
