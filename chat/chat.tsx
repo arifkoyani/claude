@@ -60,7 +60,7 @@ function CodeBlock({ language, code }: { language: string; code: string }) {
   return (
     <div className="my-3 rounded-xl border border-slate-700/80 bg-[#090d13] overflow-hidden shadow-lg">
       <div className="flex items-center justify-between px-3.5 py-1.5 bg-[#141a23] border-b border-slate-700/80 text-[11px] text-slate-300 select-none">
-        <span className="font-mono text-emerald-400 font-semibold tracking-wide uppercase text-[10px]">
+        <span className="font-mono text-[#D97757] font-semibold tracking-wide uppercase text-[10px]">
           {language || "CODE"}
         </span>
         <button
@@ -72,7 +72,7 @@ function CodeBlock({ language, code }: { language: string; code: string }) {
           {copied ? (
             <>
               <svg
-                className="w-3.5 h-3.5 text-emerald-400"
+                className="w-3.5 h-3.5 text-[#D97757]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -84,7 +84,7 @@ function CodeBlock({ language, code }: { language: string; code: string }) {
                   d="M5 13l4 4L19 7"
                 />
               </svg>
-              <span className="text-emerald-400 font-medium">Copied!</span>
+              <span className="text-[#D97757] font-medium">Copied!</span>
             </>
           ) : (
             <>
@@ -142,12 +142,12 @@ function MarkdownMessage({
             </h1>
           ),
           h2: ({ children }) => (
-            <h2 className="text-base sm:text-lg font-bold text-emerald-300 mt-3.5 mb-1.5 pb-0.5 border-b border-slate-800/60">
+            <h2 className="text-base sm:text-lg font-bold text-[#e88c6e] mt-3.5 mb-1.5 pb-0.5 border-b border-slate-800/60">
               {children}
             </h2>
           ),
           h3: ({ children }) => (
-            <h3 className="text-sm sm:text-base font-semibold text-emerald-400 mt-3 mb-1">
+            <h3 className="text-sm sm:text-base font-semibold text-[#D97757] mt-3 mb-1">
               {children}
             </h3>
           ),
@@ -181,7 +181,7 @@ function MarkdownMessage({
             <li className="leading-6 sm:leading-7">{children}</li>
           ),
           blockquote: ({ children }) => (
-            <blockquote className="border-l-3 border-emerald-500/80 pl-3.5 py-1.5 my-2.5 bg-slate-800/40 rounded-r text-slate-300 italic text-[13px] sm:text-[14px]">
+            <blockquote className="border-l-3 border-[#D97757] pl-3.5 py-1.5 my-2.5 bg-slate-800/40 rounded-r text-slate-300 italic text-[13px] sm:text-[14px]">
               {children}
             </blockquote>
           ),
@@ -207,7 +207,7 @@ function MarkdownMessage({
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2 transition"
+              className="text-[#D97757] hover:text-[#f09a7d] underline underline-offset-2 transition"
             >
               {children}
             </a>
@@ -225,7 +225,7 @@ function MarkdownMessage({
 
             return (
               <code
-                className="bg-slate-800/90 text-emerald-300 px-1.5 py-0.5 rounded font-mono text-[11px] sm:text-[12px] border border-slate-700/60"
+                className="bg-slate-800/90 text-[#f09a7d] px-1.5 py-0.5 rounded font-mono text-[11px] sm:text-[12px] border border-slate-700/60"
                 {...props}
               >
                 {children}
@@ -759,14 +759,13 @@ export default function Chat() {
         <div className="p-3.5 border-b border-slate-800 flex items-center justify-center">
           <div className="flex items-center gap-2">
             <img
-              src="/Claude-logo.png"
-              alt="barche logo"
-              className="w-7 h-7 object-contain rounded"
+              src="/claude-claude-code.gif"
+              alt="Claude Code logo"
+              className="w-8 h-8 object-contain rounded"
             />
             <span className="font-bold text-sm text-slate-100 tracking-wide">
-              Barche ai
+              Barche
             </span>
-            {/* Sidebar Hide Button right side of logo and BARCHe AI */}
           </div>
         </div>
 
@@ -780,7 +779,7 @@ export default function Chat() {
           <button
             type="button"
             onClick={handleNewChat}
-            className="w-full text-left px-3 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium transition cursor-pointer flex items-center gap-2 shadow"
+            className="w-full text-left px-3 py-2 rounded-lg bg-[#D97757] hover:bg-[#c8694b] text-white font-medium transition cursor-pointer flex items-center gap-2 shadow"
             title="Start New Chat"
           >
             <svg
@@ -810,7 +809,7 @@ export default function Chat() {
                   key={c.uuid}
                   className={`group relative flex items-center justify-between rounded-lg transition px-2.5 py-1.5 ${
                     isActive
-                      ? "bg-emerald-600/20 text-emerald-300 border border-emerald-500/30"
+                      ? "bg-[#D97757]/20 text-[#f09a7d] border border-[#D97757]/40"
                       : "text-slate-300 hover:bg-slate-800/60"
                   }`}
                 >
@@ -869,7 +868,7 @@ export default function Chat() {
         <div className="p-3 border-t border-slate-800/80 bg-[#12161f] text-[11px] text-slate-400 space-y-1">
           <div className="flex items-center justify-between">
             <span>Endpoint:</span>
-            <span className="font-mono text-emerald-400 text-[10px]">
+            <span className="font-mono text-[#D97757] text-[10px]">
               barche.arifkoyani.com
             </span>
           </div>
@@ -881,7 +880,7 @@ export default function Chat() {
           </div>
           <div className="flex items-center justify-between">
             <span>Model:</span>
-            <span className="font-mono text-emerald-400 text-[10px] truncate max-w-[120px]">
+            <span className="font-mono text-[#D97757] text-[10px] truncate max-w-[120px]">
               {selectedModel}
             </span>
           </div>
@@ -927,8 +926,8 @@ export default function Chat() {
 
           <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
             {/* Plan Badge */}
-            <span className="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-xs font-semibold tracking-wide">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            <span className="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#D97757]/15 border border-[#D97757]/30 text-[#D97757] text-xs font-semibold tracking-wide">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#D97757]"></span>
               Claude Max
             </span>
 
@@ -940,7 +939,7 @@ export default function Chat() {
               <select
                 value={selectedModel}
                 onChange={(e) => setSelectedModel(e.target.value)}
-                className="bg-transparent text-xs text-emerald-400 font-medium outline-none cursor-pointer max-w-[115px] sm:max-w-[150px] md:max-w-none truncate"
+                className="bg-transparent text-xs text-[#D97757] font-medium outline-none cursor-pointer max-w-[115px] sm:max-w-[150px] md:max-w-none truncate"
                 title="Select Claude Model"
               >
                 {AVAILABLE_MODELS.map((m) => (
@@ -976,7 +975,7 @@ export default function Chat() {
             {isLoading ? (
               <div className="flex flex-col items-center justify-center h-64 text-slate-400 space-y-3">
                 <svg
-                  className="w-8 h-8 animate-spin text-emerald-500"
+                  className="w-8 h-8 animate-spin text-[#D97757]"
                   fill="none"
                   viewBox="0 0 24 24"
                 >
@@ -1000,7 +999,7 @@ export default function Chat() {
               </div>
             ) : messages.length === 0 ? (
               <div className="flex flex-col items-center justify-center h-64 text-center text-slate-400 space-y-2">
-                <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-xl font-bold">
+                <div className="w-12 h-12 rounded-2xl bg-[#D97757]/15 border border-[#D97757]/30 flex items-center justify-center text-[#D97757] text-xl font-bold">
                   C
                 </div>
                 <h3 className="text-sm font-medium text-slate-200">
@@ -1023,7 +1022,7 @@ export default function Chat() {
                     className={`flex gap-3 sm:gap-4 ${isHuman ? "justify-end" : "justify-start"} w-full`}
                   >
                     {!isHuman && (
-                      <div className="w-8 h-8 rounded-full bg-emerald-600/30 border border-emerald-500/40 flex items-center justify-center text-emerald-300 font-bold text-xs shrink-0 select-none shadow-sm mt-0.5">
+                      <div className="w-8 h-8 rounded-full bg-[#D97757]/25 border border-[#D97757]/45 flex items-center justify-center text-[#f09a7d] font-bold text-xs shrink-0 select-none shadow-sm mt-0.5">
                         AI
                       </div>
                     )}
@@ -1066,14 +1065,14 @@ export default function Chat() {
                           <span
                             className={
                               isHuman
-                                ? "text-emerald-400"
+                                ? "text-[#D97757]"
                                 : "text-white font-medium"
                             }
                           >
                             {isHuman ? "You" : "Barche"}
                           </span>
                           {!isHuman && (
-                            <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-mono border border-emerald-500/20">
+                            <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#D97757]/15 text-[#D97757] font-mono border border-[#D97757]/30">
                               {selectedModel}
                             </span>
                           )}
@@ -1088,7 +1087,7 @@ export default function Chat() {
                             {copiedId === msgId ? (
                               <>
                                 <svg
-                                  className="w-3.5 h-3.5 text-emerald-400"
+                                  className="w-3.5 h-3.5 text-[#D97757]"
                                   fill="none"
                                   stroke="currentColor"
                                   viewBox="0 0 24 24"
@@ -1100,7 +1099,7 @@ export default function Chat() {
                                     d="M5 13l4 4L19 7"
                                   />
                                 </svg>
-                                <span className="text-emerald-400 font-medium">
+                                <span className="text-[#D97757] font-medium">
                                   Copied!
                                 </span>
                               </>
@@ -1132,7 +1131,7 @@ export default function Chat() {
                           <MarkdownMessage content={text} isHuman={isHuman} />
                         ) : (
                           <span className="italic text-slate-400 inline-flex items-center gap-2 py-1 text-sm">
-                            <span className="animate-spin inline-block w-3.5 h-3.5 border-2 border-emerald-400 border-t-transparent rounded-full"></span>
+                            <span className="animate-spin inline-block w-3.5 h-3.5 border-2 border-[#D97757] border-t-transparent rounded-full"></span>
                             Acho na Gosham....
                           </span>
                         )}
@@ -1156,7 +1155,7 @@ export default function Chat() {
         <div className="p-2.5 sm:p-4 shrink-0">
           <form
             onSubmit={handleSend}
-            className="w-full sm:max-w-[85%] md:max-w-[75%] lg:max-w-[60%] mx-auto rounded-xl bg-[#1c2128] border border-slate-700 focus-within:border-emerald-500 shadow-lg transition-all duration-150 relative"
+            className="w-full sm:max-w-[85%] md:max-w-[75%] lg:max-w-[60%] mx-auto rounded-xl bg-[#1c2128] border border-slate-700 focus-within:border-[#D97757] shadow-lg transition-all duration-150 relative"
             style={{
               resize: "both",
               overflow: "hidden",
@@ -1185,7 +1184,7 @@ export default function Chat() {
                       {file.file_name}
                     </span>
                     {file.uploading ? (
-                      <span className="animate-spin text-emerald-400 text-xs">
+                      <span className="animate-spin text-[#D97757] text-xs">
                         &#8635;
                       </span>
                     ) : (
@@ -1218,7 +1217,7 @@ export default function Chat() {
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
                 disabled={isUploading || isSending}
-                className="p-2.5 ml-2 mb-1 rounded-lg text-slate-400 hover:text-emerald-400 hover:bg-slate-800/60 transition cursor-pointer disabled:opacity-50 shrink-0"
+                className="p-2.5 ml-2 mb-1 rounded-lg text-slate-400 hover:text-[#D97757] hover:bg-slate-800/60 transition cursor-pointer disabled:opacity-50 shrink-0"
                 title="Attach image or file"
               >
                 <svg
@@ -1261,7 +1260,7 @@ export default function Chat() {
                   isSending ||
                   isUploading
                 }
-                className="absolute right-5 bottom-2 p-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 disabled:bg-slate-800 disabled:text-slate-600 text-white transition active:scale-95 disabled:active:scale-100 cursor-pointer disabled:cursor-not-allowed shadow shrink-0"
+                className="absolute right-5 bottom-2 p-2 rounded-lg bg-[#D97757] hover:bg-[#c8694b] disabled:bg-slate-800 disabled:text-slate-600 text-white transition active:scale-95 disabled:active:scale-100 cursor-pointer disabled:cursor-not-allowed shadow shrink-0"
                 title={isSending ? "Waiting for response..." : "Send message"}
               >
                 {isSending ? (
