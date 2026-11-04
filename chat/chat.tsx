@@ -738,7 +738,7 @@ export default function Chat() {
   };
 
   return (
-    <div className="flex h-screen w-screen bg-[#0d1117] text-slate-100 font-sans overflow-hidden relative">
+    <div className="flex h-screen w-screen bg-[#0d1117] text-white font-sans overflow-hidden relative">
       {/* Mobile Backdrop Overlay when sidebar is open */}
       {isSidebarOpen && (
         <div
@@ -763,7 +763,7 @@ export default function Chat() {
               alt="Barche Code logo"
               className="w-8 h-8 object-contain rounded"
             />
-            <span className="font-bold text-sm text-slate-100 tracking-wide">
+            <span className="font-bold text-sm text-white tracking-wide">
               Barche
             </span>
           </div>
